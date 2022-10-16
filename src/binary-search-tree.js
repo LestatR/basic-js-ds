@@ -114,8 +114,8 @@ constructor() {
             let nextNode = node.right.left;
 
             while (nextNode){
-              curNode = nextNode.data;
-              nextNode = nextNode.left.data;
+              curData = nextNode.data;
+              nextNode = nextNode.left;
             }
 
             node.data = curData;
