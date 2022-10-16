@@ -1,4 +1,5 @@
 const { NotImplementedError } = require('../extensions/index.js');
+const { ListNode } = require('../extensions/list-node.js');
 
 // const { ListNode } = require('../extensions/list-node.js');
 
@@ -15,7 +16,7 @@ const { NotImplementedError } = require('../extensions/index.js');
  */
 class Queue {
   constructor(value){
-    this.start = value ? new queueItem(value) : null;
+    this.start = value ? new ListNode(value) : null;
     this.finish = this.start;
   }
   
@@ -24,17 +25,20 @@ class Queue {
   }
 
   enqueue(value) {
-    let newItem = new queueItem(value);
+    let newNode = new ListNode(value);
     if (this.start === null){
-      this.start = newItem;
+      this.start = newNode;
       this.finish = this.start;
+      return;
     }
+    this.finish.next = newNode;
+    this.finish = newNode;
   }
 
   dequeue() {
-    let firstItem = this.start;
+    let firstNode = this.start;
     this.start = this.start.next;
-    return firstItem.value;
+    return firstNode.value;
   }
 }
 

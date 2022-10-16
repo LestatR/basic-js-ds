@@ -1,4 +1,5 @@
 const { NotImplementedError } = require('../extensions/index.js');
+const { Node } = require('../extensions/list-tree.js');
 
 // const { Node } = require('../extensions/list-tree.js');
 
@@ -8,91 +9,91 @@ const { NotImplementedError } = require('../extensions/index.js');
 */
 class BinarySearchTree {
 constructor() {
-      this.value = null;}
+      this.rootData = null;}
 
   root() {
-    return this.value;
+    return this.rootData;
     
   }
 
-  add(value) {
-    this.rootValue = rutValue(this.rootValue, value);
+  add(data) {
+    this.rootData = rutData(this.rootData, data);
 
-    function rutValue(node, value) {
+    function rutData(node, data) {
       if (!node) {
-        node = new Node(value);
+        node = new Node(data);
         return node;
       }
 
-      if (node.value === value) {
+      if (node.data === data) {
         return node;
       }
 
-      if (node.value < value) {
-        node.right = rutValue(node.right, value);
+      if (node.data < data) {
+        node.right = rutData(node.right, data);
       }
 
-      if (node.value > value) {
-        node.left = rutValue(node.left, value);
+      if (node.data > data) {
+        node.left = rutData(node.left, data);
         }
 
         return node;
     }
   }
 
-  has(value) {
-    return searchValue(this.rootValue, value);
+  has(data) {
+    return searchData(this.rootData, data);
 
-    function searchValue (node, value) {
+    function searchData (node, data) {
       if (!node) {
         return false;
       }
 
-      if (node.value === value) {
+      if (node.data === data) {
         return true;
       }
 
-      if (node.value < value) {
-        return searchValue(node.right, value);
+      if (node.data < data) {
+        return searchData(node.right, data);
       } else {
-        return searchValue(node.left, value);
+        return searchData(node.left, data);
       }
     }
   }
 
-  find(value) {
-    return searchNode(this.rootValue, value);
+  find(data) {
+    return searchNode(this.rootData, data);
 
-    function searchNode(node, value) {
+    function searchNode(node, data) {
       if (!node) {
         return null;
       }
 
-      if (node.value === value) {
+      if (node.data === data) {
         return node;
       }
 
-      if (node.value < value) {
-        return searchNode(node.right, value);
+      if (node.data < data) {
+        return searchNode(node.right, data);
       } else {
-        return searchNode(node.left, value);
+        return searchNode(node.left, data);
       }
     }
   }
 
-  remove(value) {
-        this.rootValue = removeNode(this.rootValue, value);
+  remove(data) {
+        this.rootData = removeNode(this.rootData, data);
 
-        function removeNode(node, value) {
+        function removeNode(node, data) {
           if (!node) {
             return null;
           }
 
-          if (node.value < value) {
-            node.right = removeNode(node.right, value);
+          if (node.data < data) {
+            node.right = removeNode(node.right, data);
             return node;
-          } else if (node.value > value) {
-            node.left = remove(node.left, value);
+          } else if (node.data > data) {
+            node.left = removeNode(node.left, data);
             return node;
           } else {
             if (!node.left && !node.right) {
@@ -109,46 +110,46 @@ constructor() {
               return node;
             }
 
-            let curValue = node.right.value;
+            let curData = node.right.data;
             let nextNode = node.right.left;
 
             while (nextNode){
-              curValue = nextNode;
-              nextNode = nextNode.left;
+              curNode = nextNode.data;
+              nextNode = nextNode.left.data;
             }
 
-            node.value = curValue;
-            node.right = removeNode(node.right, curValue);
+            node.data = curData;
+            node.right = removeNode(node.right, curData);
             return node;
           }
         }
   }
 
-  min(startNode = this.rootValue) {
+  min(startNode = this.rootData) {
     if (!startNode){
       return null;
     }
 
-    let curNode = startNode.value;
+    let curNode = startNode.data;
     let nextNode = startNode.left;
 
     while (nextNode){
-      curNode = nextNode.value;
+      curNode = nextNode.data;
       nextNode = nextNode.left;
     }
     return curNode;
   }
 
-  max(startNode = this.rootValue) {
+  max(startNode = this.rootData) {
     if (!startNode){
       return null;
     }
 
-    let curNode = startNode.value;
+    let curNode = startNode.data;
     let nextNode = startNode.right;
 
     while (nextNode){
-      curNode = nextNode.value;
+      curNode = nextNode.data;
       nextNode = nextNode.right;
     }
     return curNode;
